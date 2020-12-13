@@ -1,24 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
-
+const ipcRenderer = window.ipcRenderer;
 function App() {
+
+  const handleClick = (drive) => {
+    //Do something that is goign to send back to main electron
+    //ipcRenderer.send  to send 
+    //ipcRenderer.on to recieve
+    console.log(`Button clicked with Drive of: ${drive}`)
+    ipcRenderer.send('drive:selected', drive);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Directory Scanner v1.0
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <button onClick={() => handleClick("c:\\")}>Select C:\</button>
           Learn React
-        </a>
       </header>
-    </div>
+    </div >
   );
 }
 

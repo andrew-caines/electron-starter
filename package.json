@@ -2,6 +2,18 @@
   "name": "directory-scanner",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.js",
+  "homepage": "./",
+  "author":"Andrew Caines <andrew.p.caines@gmail.com",
+  "description": "A Directory Scanner Tool",
+  "build": {
+    "appId": "com.example.directory-scanner",
+    "productName": "Bitloom Directory Scanner v1.0",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -12,10 +24,15 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "SET BROWSER=none && react-scripts start",
+    "start-win": "SET BROWSER=none && react-scripts start",
+    "start-electron": "SET ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "start-electron-win": "SET ELECTRON_START_URL=http://localhost:3000 && electron .",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build-electron": "mkdir build/src && cp -r electron/. build/electron",
+    "build-electron-win": "mkdir build\\src && Xcopy /E /I /Y electron build\\electron",
+    "package": "npm run build && npm run build-electron && electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never",
+    "package-win": "npm run build && npm run build-electron-win && electron-builder build -c.extraMetadata.main=build/electron/main.js --publish never"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +51,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^11.1.0",
+    "electron-builder": "^22.9.1"
   }
 }
